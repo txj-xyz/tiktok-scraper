@@ -397,7 +397,9 @@ export class TikTokScraper extends EventEmitter {
             try {
                 await fromCallback(cb => mkdir(this.folderDestination, { recursive: true }, cb));
             } catch (error) {
-                return this.returnInitError(error.message);
+                if (error instanceof Error) {
+                    return this.returnInitError(error.message);
+                }
             }
         }
 
@@ -593,7 +595,7 @@ export class TikTokScraper extends EventEmitter {
      * Submit request to the TikTok web API
      * Collect received metadata
      */
-    private async submitScrapingRequest(query: RequestQuery, updatedApiResponse = false): Promise<boolean> {
+    private async submitScrapingRequest(query: RequestQuery, updatedApiResponse = false): Promise<any> {
         try {
             if (!this.validHeaders) {
                 /**
@@ -626,7 +628,7 @@ export class TikTokScraper extends EventEmitter {
             this.maxCursor = parseInt(maxCursor === undefined ? cursor : maxCursor, 10);
             return false;
         } catch (error) {
-            throw error.message ? new Error(error.message) : error;
+            if (error instanceof Error) throw error.message ? new Error(error.message) : error;
         }
     }
 
@@ -912,11 +914,13 @@ export class TikTokScraper extends EventEmitter {
         try {
             await this.request<string>(options);
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 
-    private async scrapeData<T>(qs: RequestQuery): Promise<T> {
+    private async scrapeData<T>(qs: RequestQuery): Promise<any> {
         this.storeValue = this.scrapeType === 'trend' ? 'trend' : qs.id || qs.challengeID! || qs.musicID!;
 
         const unsignedURL = `${this.getApiEndpoint}?${new URLSearchParams(qs as any).toString()}`;
@@ -936,7 +940,9 @@ export class TikTokScraper extends EventEmitter {
             const response = await this.request<T>(options);
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -1010,7 +1016,9 @@ export class TikTokScraper extends EventEmitter {
                 verifyFp: this.verifyFp,
             };
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -1054,7 +1062,9 @@ export class TikTokScraper extends EventEmitter {
                 is_fullscreen: false,
             };
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -1115,7 +1125,9 @@ export class TikTokScraper extends EventEmitter {
             }
             return response.challengeInfo;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 
@@ -1169,7 +1181,9 @@ export class TikTokScraper extends EventEmitter {
             }
             return response.musicInfo;
         } catch (error) {
-            throw new Error(error.message);
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            }
         }
     }
 

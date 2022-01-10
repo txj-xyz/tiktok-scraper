@@ -26,6 +26,7 @@ module.exports = {
         {
             files: ['*.ts'],
             rules: {
+                'consistent-return': 'off',
                 'no-prototype-builtins': 'off',
                 'no-param-reassign': 'off',
                 '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],

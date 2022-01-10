@@ -9,6 +9,7 @@
         "target": "ES2017",
         "removeComments": true,
         "noImplicitAny": false,
+        "noImplicitReturns": false,
         "moduleResolution": "node",
         "declaration": true,
         "noUnusedLocals": true,
