@@ -23,6 +23,7 @@ describe('TikTok Scraper MODULE(promise): user(valid input data)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
     });
 
@@ -73,6 +74,7 @@ describe('TikTok Scraper MODULE(event): user(valid input data)', () => {
             proxy: '',
             number: 1,
             event: true,
+            since: 0,
         });
     });
 
@@ -100,6 +102,7 @@ describe('TikTok Scraper MODULE(promise): user(invalid input data)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
         expect(instance.scrape()).rejects.toEqual('Missing input');
     });
@@ -118,6 +121,7 @@ describe('TikTok Scraper MODULE(promise): user(invalid input data)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
         expect(instance.scrape()).rejects.toEqual(`Missing scraping type. Scrape types: ${CONST.scrape} `);
     });
@@ -139,6 +143,7 @@ describe('TikTok Scraper MODULE(event): user(invalid input data)', () => {
             proxy: '',
             number: 1,
             event: true,
+            since: 0,
         });
         instance.on('error', data => {
             expect(data).toEqual('Missing input');
@@ -162,6 +167,7 @@ describe('TikTok Scraper MODULE(event): user(invalid input data)', () => {
             proxy: '',
             number: 5,
             event: true,
+            since: 0,
         });
         instance.on('error', data => {
             expect(data).toEqual(`Missing scraping type. Scrape types: ${CONST.scrape} `);
@@ -190,6 +196,7 @@ describe('TikTok Scraper MODULE(promise): user(save to a file)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
 
         posts = await instance.scrape();
@@ -225,6 +232,7 @@ describe('TikTok Scraper MODULE(promise): hashtag(valid input data)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
     });
 
@@ -260,6 +268,7 @@ describe('TikTok Scraper MODULE(promise): signUrl', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
     });
     it('signUrl should return a valid signature', async () => {
@@ -290,6 +299,7 @@ describe('TikTok Scraper MODULE(promise): getHashtagInfo', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
     });
     it('getHashtagInfo should return a valid Object', async () => {
@@ -341,6 +351,7 @@ describe('TikTok Scraper MODULE(promise): getUserProfileInfo', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
     });
     it('getUserProfileInfo should return a valid Object', async () => {
@@ -405,6 +416,7 @@ describe('TikTok Scraper CLI: user(save progress)', () => {
             },
             proxy: '',
             number: 5,
+            since: 0,
         });
 
         posts = await instance.scrape();
@@ -444,6 +456,7 @@ describe('TikTok Scraper MODULE(promise): getVideoMeta', () => {
             proxy: '',
             number: 5,
             hdVideo: false,
+            since: 0,
         });
     });
     it('getVideoMeta should return a valid Object', async () => {
