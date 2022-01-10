@@ -560,7 +560,7 @@ export class TikTokScraper extends EventEmitter {
                             break;
                         case 'hashtag':
                             this.getHashTagId()
-                                .then(query => this.submitScrapingRequest({ ...query, cursor: item === 1 ? 0 : (item - 1) * query.count! }, true))
+                                .then(query => this.submitScrapingRequest({ ...query, cursor: item === 1 ? 0 : (item - 1) * query?.count! }, true))
                                 .then(kill => cb(kill || null))
                                 .catch(error => cb(error));
                             break;
@@ -983,7 +983,7 @@ export class TikTokScraper extends EventEmitter {
     /**
      * Get hashtag ID
      */
-    private async getHashTagId(): Promise<RequestQuery> {
+    private async getHashTagId(): Promise<RequestQuery | undefined> {
         if (this.idStore) {
             return {
                 challengeID: this.idStore,
@@ -1025,7 +1025,7 @@ export class TikTokScraper extends EventEmitter {
     /**
      * Get user ID
      */
-    private async getUserId(): Promise<RequestQuery> {
+    private async getUserId(): Promise<RequestQuery | undefined> {
         if (this.byUserId || this.idStore) {
             return {
                 id: this.userIdStore,
@@ -1102,7 +1102,7 @@ export class TikTokScraper extends EventEmitter {
      * Get hashtag information
      * @param {} hashtag
      */
-    public async getHashtagInfo(): Promise<HashtagMetadata> {
+    public async getHashtagInfo(): Promise<HashtagMetadata | undefined> {
         if (!this.input) {
             throw new Error(`Hashtag is missing`);
         }
@@ -1135,7 +1135,7 @@ export class TikTokScraper extends EventEmitter {
      * Get music information
      * @param {} music link
      */
-    public async getMusicInfo(): Promise<MusicMetadata> {
+    public async getMusicInfo(): Promise<MusicMetadata | undefined> {
         if (!this.input) {
             throw new Error(`Music is missing`);
         }
