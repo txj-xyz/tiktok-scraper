@@ -26,8 +26,8 @@ module.exports = {
         {
             files: ['*.ts'],
             rules: {
-                'no-prototype-builtins': 'warn',
-                'no-param-reassign': 'warn',
+                'no-prototype-builtins': 'off',
+                'no-param-reassign': 'off',
                 '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
             },
         },
