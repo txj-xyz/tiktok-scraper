@@ -469,8 +469,7 @@ export class TikTokScraper extends EventEmitter {
                     if (err) {
                         return reject(err);
                     }
-
-                    resolve(null);
+                    return resolve(null);
                 },
             );
         });
@@ -584,7 +583,7 @@ export class TikTokScraper extends EventEmitter {
                         return reject(err);
                     }
 
-                    resolve(null);
+                    return resolve(null);
                 },
             );
         });
@@ -793,6 +792,7 @@ export class TikTokScraper extends EventEmitter {
                 if (result.done) {
                     break;
                 } else {
+                    // eslint-disable-next-line
                     continue;
                 }
             }
@@ -1201,7 +1201,7 @@ export class TikTokScraper extends EventEmitter {
                 throw new Error(`Can't extract video meta data`);
             }
 
-            if (response.includes("__NEXT_DATA__")){
+            if (response.includes('__NEXT_DATA__')) {
                 const rawVideoMetadata = response
                     .split(/<script id="__NEXT_DATA__" type="application\/json" nonce="[\w-]+" crossorigin="anonymous">/)[1]
                     .split(`</script>`)[0];
@@ -1211,19 +1211,17 @@ export class TikTokScraper extends EventEmitter {
                 return videoData as FeedItems;
             }
 
-            if (response.includes("SIGI_STATE")) {
+            if (response.includes('SIGI_STATE')) {
                 // Sometimes you may receive a state in different format, so we should parse it too
                 // New format - https://pastebin.com/WLUpL0ei
-                const rawVideoMetadata = response
-                    .split("window['SIGI_STATE']=")[1]
-                    .split(";window['SIGI_RETRY']=")[0];
+                const rawVideoMetadata = response.split("window['SIGI_STATE']=")[1].split(";window['SIGI_RETRY']=")[0];
 
                 const videoProps = JSON.parse(rawVideoMetadata);
                 const videoData = Object.values(videoProps.ItemModule)[0];
                 return videoData as FeedItems;
             }
 
-            throw new Error('No available parser for html page')
+            throw new Error('No available parser for html page');
         } catch (error) {
             throw new Error(`Can't extract video metadata: ${this.input}`);
         }
