@@ -26,14 +26,16 @@ module.exports = {
         {
             files: ['*.ts'],
             rules: {
+                'no-prototype-builtins': 'warn',
+                'no-param-reassign': 'warn',
                 '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
             },
         },
         {
-          files: ['*.test.ts'],
-          env: {
-            jest: true
-          }
-        }
+            files: ['*.test.ts'],
+            env: {
+                jest: true,
+            },
+        },
     ],
 };
